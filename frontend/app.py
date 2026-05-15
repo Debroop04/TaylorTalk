@@ -1,4 +1,5 @@
 import streamlit as st
+import json
 
 from dotenv import load_dotenv
 
@@ -38,8 +39,12 @@ st.write(
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
-credentials = service_account.Credentials.from_service_account_file(
-    'service_account.json',
+service_account_info = json.loads(
+    st.secrets["SERVICE_ACCOUNT_JSON"]
+)
+
+credentials = service_account.Credentials.from_service_account_info(
+    service_account_info,
     scopes=SCOPES
 )
 
